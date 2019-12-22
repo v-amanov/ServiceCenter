@@ -57,86 +57,94 @@ istream& operator>> (istream& is, Order& order)
 
 void admin()
 {
-	string path = "Database.txt";
-	Order order;
-	fstream fs;
-	fs.open(path, fstream::in | fstream::out | fstream::app);
-
-	if (!fs.is_open())
-	{
-		cout << "Ошибка отркрытия файла!" << endl;
-	}
-	else
+	cout << "Введите пароль";
+	string password = "";
+	cin >> password;
+	if (password=="admin")
 	{
 
-		int value;
-		cout << "Файл открыт!" << endl;
-		cout << "Введите 1 для записи в файл: " << endl;
-		cout << "Введите 2 для считывания всех записей" << endl;
-		cin >> value;
-		switch (value)
+
+		string path = "Database.txt";
+		Order order;
+		fstream fs;
+		fs.open(path, fstream::in | fstream::out | fstream::app);
+
+		if (!fs.is_open())
 		{
-		case 1:
-			cout << "Во избежании ошибок все словосочетания которые пишутся через пробел необходимо писать через нижнее подчёркиванеи!" << endl;
-			cout << "Введите данные" << endl;
-			cout << "\nНаименование: ";
-			cin >> order.name;
-			cout << "\nМодель: ";
-			cin >> order.model;
-			cout << "\nФИО владельца: ";
-			cin >> order.ownername;
-			cout << "\nНомер владельца: ";
-			cin >> order.pnumber;
-			cout << "\nЦена: ";
-			cin >> order.cost;
-			cout << "\nДата приемки: ";
-			cin >> order.accdate;
-			cout << "\nДата выдачи: ";
-			cin >> order.issuedate;
-			cout << "\nСтатус: ";
-			cin >> order.status;
-			fs << order << "\n";
-			break;
-		case 2:
+			cout << "Ошибка отркрытия файла!" << endl;
+		}
+		else
 		{
-			int sortvalue = 0;
-			cout << "Выберите способ сортировки\n1.По дате приема\n2.По статусу\n3.По наименованию\n";
-			cin >> sortvalue;
-			switch (sortvalue)
+
+			int value;
+			cout << "Файл открыт!" << endl;
+			cout << "Введите 1 для записи в файл: " << endl;
+			cout << "Введите 2 для считывания всех записей" << endl;
+			cin >> value;
+			switch (value)
 			{
-
 			case 1:
+				cout << "Во избежании ошибок все словосочетания которые пишутся через пробел необходимо писать через нижнее подчёркиванеи!" << endl;
+				cout << "Введите данные" << endl;
+				cout << "\nНаименование: ";
+				cin >> order.name;
+				cout << "\nМодель: ";
+				cin >> order.model;
+				cout << "\nФИО владельца: ";
+				cin >> order.ownername;
+				cout << "\nНомер владельца: ";
+				cin >> order.pnumber;
+				cout << "\nЦена: ";
+				cin >> order.cost;
+				cout << "\nДата приемки: ";
+				cin >> order.accdate;
+				cout << "\nДата выдачи: ";
+				cin >> order.issuedate;
+				cout << "\nСтатус: ";
+				cin >> order.status;
+				fs << order << "\n";
 				break;
-
 			case 2:
-				break;
+			{
+				int sortvalue = 0;
+				cout << "Выберите способ сортировки\n1.По дате приема\n2.По статусу\n3.По наименованию\n";
+				cin >> sortvalue;
+				switch (sortvalue)
+				{
 
-			case 3:
-				break;
+				case 1:
+					break;
 
+				case 2:
+					break;
+
+				case 3:
+					break;
+
+				default:
+					break;
+				}
+
+				while (true)
+				{
+					Order _order;
+					fs >> _order;
+					if (fs.eof())
+					{
+						break;
+					}
+					cout << _order << endl;
+				}
+				break;
+			}
 			default:
 				break;
 			}
 
-			while (true)
-			{
-				Order _order;
-				fs >> _order;
-				if (fs.eof())
-				{
-					break;
-				}
-				cout << _order << endl;
-			}
-			break;
-		}
-		default:
-			break;
 		}
 
+		fs.close();
 	}
-
-	fs.close();
 }
 
 void user()
