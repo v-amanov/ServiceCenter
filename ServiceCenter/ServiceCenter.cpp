@@ -24,10 +24,6 @@ public:
 		this->status = status;
 	}
 
-	/*void Print()
-	{
-		cout << "Наименование: " << name << "\tМодель: " << model << "\tФИО владельца: " << ownername << "\tНомер телефона владельца: " << pnumber << "\tЦена: " << cost << "\tДата приемки: " << accdate << "\tДата выдачи: " << issuedate << "\tСтатус: " << status << endl;
-	}*/
 
 	string name;
 	string model;
@@ -43,8 +39,8 @@ public:
 
 ostream& operator<<(ostream& os, const Order& order) //Возвращает ссыклу на объект типа ostream
 {
-	os << order.name << " " << order.model << " " << order.ownername << " " << order.pnumber << " " 
-	<< order.cost << " " << order.accdate << " " << order.issuedate << " " << order.status;
+	os << order.name << " " << order.model << " " << order.ownername << " " << order.pnumber << " "
+		<< order.cost << " " << order.accdate << " " << order.issuedate << " " << order.status;
 
 	return os;
 }
@@ -60,7 +56,7 @@ void admin()
 	cout << "Введите пароль";
 	string password = "";
 	cin >> password;
-	if (password=="admin")
+	if (password == "admin")
 	{
 		string path = "Database.txt";
 		Order order;
@@ -83,7 +79,7 @@ void admin()
 			switch (value)
 			{
 			case 1:
-				cout << "Во избежании ошибок все словосочетания которые пишутся через пробел необходимо писать через нижнее подчёркиванеи!" << endl;
+				cout << "Во избежании ошибок все словосочетания которые пишутся через пробел необходимо писать через нижнее подчёркивание!" << endl;
 				cout << "Введите данные" << endl;
 				cout << "\nНаименование: ";
 				cin >> order.name;
@@ -109,7 +105,7 @@ void admin()
 				int sortvalue = 0;
 				cout << "Выберите способ сортировки\n1.По дате приема\n2.По статусу\n3.По наименованию\n";
 				cin >> sortvalue;
-				int stringscount=0;
+				int stringscount = 0;
 
 				while (true)
 				{
@@ -122,29 +118,20 @@ void admin()
 					cout << _order << endl;
 					stringscount++;
 				}
+
 				fs.clear();
 				fs.seekg(0, ios_base::beg);
 				Order* ordmas = new Order[stringscount];
 				int j = 0;
+
 				for (int i = 0; i < stringscount; i++)
 				{
 					Order _ordmas;
 					fs >> _ordmas;
 					ordmas[i] = _ordmas;
-		
+
 				}
-				/*while (true)
-				{
-					Order _order;
-					fs >> _order;
-					ordmas[j] = _order;
-					if (fs.eof())
-					{
-						break;
-					}
-					j++;
-				}*/
-				//cout << stringscount;
+
 				cout << "Отсортированные записи \n";
 				switch (sortvalue)
 				{
@@ -153,9 +140,9 @@ void admin()
 
 					for (int j = 0; j < stringscount; j++)
 					{
-						for (int i = 0; i < stringscount-1; i++)
+						for (int i = 0; i < stringscount - 1; i++)
 						{
-							if (ordmas[i].accdate>ordmas[i+1].accdate)
+							if (ordmas[i].accdate > ordmas[i + 1].accdate)
 							{
 								Order tempord;
 								tempord = ordmas[i];
@@ -228,7 +215,7 @@ void admin()
 					break;
 				}
 
-				
+
 				break;
 			}
 
@@ -282,7 +269,7 @@ int main()
 		cout << "Неверный выбор";
 		break;
 	}
-	
+
 	//cin >> choise;
 	return 0;
 }
