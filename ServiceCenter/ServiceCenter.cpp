@@ -62,8 +62,6 @@ void admin()
 	cin >> password;
 	if (password=="admin")
 	{
-
-
 		string path = "Database.txt";
 		Order order;
 		fstream fs;
@@ -80,6 +78,7 @@ void admin()
 			cout << "Файл открыт!" << endl;
 			cout << "Введите 1 для записи в файл: " << endl;
 			cout << "Введите 2 для считывания всех записей" << endl;
+			cout << "Введите 3 для поиска записи" << endl;
 			cin >> value;
 			switch (value)
 			{
@@ -104,26 +103,13 @@ void admin()
 				cin >> order.status;
 				fs << order << "\n";
 				break;
+
 			case 2:
 			{
 				int sortvalue = 0;
 				cout << "Выберите способ сортировки\n1.По дате приема\n2.По статусу\n3.По наименованию\n";
 				cin >> sortvalue;
-				switch (sortvalue)
-				{
-
-				case 1:
-					break;
-
-				case 2:
-					break;
-
-				case 3:
-					break;
-
-				default:
-					break;
-				}
+				int stringscount=0;
 
 				while (true)
 				{
@@ -134,9 +120,121 @@ void admin()
 						break;
 					}
 					cout << _order << endl;
+					stringscount++;
 				}
+				fs.clear();
+				fs.seekg(0, ios_base::beg);
+				Order* ordmas = new Order[stringscount];
+				int j = 0;
+				for (int i = 0; i < stringscount; i++)
+				{
+					Order _ordmas;
+					fs >> _ordmas;
+					ordmas[i] = _ordmas;
+		
+				}
+				/*while (true)
+				{
+					Order _order;
+					fs >> _order;
+					ordmas[j] = _order;
+					if (fs.eof())
+					{
+						break;
+					}
+					j++;
+				}*/
+				//cout << stringscount;
+				cout << "Отсортированные записи \n";
+				switch (sortvalue)
+				{
+
+				case 1:
+
+					for (int j = 0; j < stringscount; j++)
+					{
+						for (int i = 0; i < stringscount-1; i++)
+						{
+							if (ordmas[i].accdate>ordmas[i+1].accdate)
+							{
+								Order tempord;
+								tempord = ordmas[i];
+								ordmas[i] = ordmas[i + 1];
+								ordmas[i + 1] = tempord;
+							}
+						}
+					}
+
+					for (int i = 0; i < stringscount; i++)
+					{
+						Order tempord;
+						tempord = ordmas[i];
+						cout << tempord << endl;
+					}
+
+					break;
+
+				case 2:
+
+					for (int j = 0; j < stringscount; j++)
+					{
+						for (int i = 0; i < stringscount - 1; i++)
+						{
+							if (ordmas[i].status > ordmas[i + 1].status)
+							{
+								Order tempord;
+								tempord = ordmas[i];
+								ordmas[i] = ordmas[i + 1];
+								ordmas[i + 1] = tempord;
+							}
+						}
+					}
+
+					for (int i = 0; i < stringscount; i++)
+					{
+						Order tempord;
+						tempord = ordmas[i];
+						cout << tempord << endl;
+					}
+
+					break;
+
+				case 3:
+
+					for (int j = 0; j < stringscount; j++)
+					{
+						for (int i = 0; i < stringscount - 1; i++)
+						{
+							if (ordmas[i].name > ordmas[i + 1].name)
+							{
+								Order tempord;
+								tempord = ordmas[i];
+								ordmas[i] = ordmas[i + 1];
+								ordmas[i + 1] = tempord;
+							}
+						}
+					}
+
+					for (int i = 0; i < stringscount; i++)
+					{
+						Order tempord;
+						tempord = ordmas[i];
+						cout << tempord << endl;
+					}
+
+					break;
+
+				default:
+					break;
+				}
+
+				
 				break;
 			}
+
+			case 3:
+				break;
+
 			default:
 				break;
 			}
@@ -144,6 +242,10 @@ void admin()
 		}
 
 		fs.close();
+	}
+	else
+	{
+		cout << "Неверный пароль!";
 	}
 }
 
